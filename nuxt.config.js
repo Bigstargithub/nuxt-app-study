@@ -10,8 +10,14 @@ export default {
       // <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
       { 'http-equiv': 'X-UA-Compatible', 'content': 'IE=edge'},
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { hid: 'description', name: 'description', content: '' }, // hid: meta의 고유값
+      { name: 'format-detection', content: 'telephone=no' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Nuxt Movie App' },
+      { hid: 'og:title', property: 'og:title', content: 'Nuxt Movie App / Search' },
+      { hid: 'og:description', property: 'og:description', content: 'THE OMDB' },
+      { hid: 'og:image', property: 'og:image', content: "" },
+      { hid: 'og:url', property: 'og:url', content : process.env.CLIENT_URL}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -40,7 +46,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/dotenv'
   ],
 
   styleResources: {
@@ -62,5 +69,12 @@ export default {
         require('autoprefixer')
       ]
     }
-  }
+  },
+  
+  serverMiddleware: [
+    { 
+      path: '/api/movie', 
+      handler: '~/server-middleware/movie.js'
+    }
+  ]
 }
